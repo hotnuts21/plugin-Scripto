@@ -95,6 +95,49 @@ class Scripto_IndexController extends Omeka_Controller_AbstractActionController
     }
 
     /**
+     * Register account in to Mediawiki/Scripto.
+     */
+    public function registerAction()
+    {
+        $registeredOK = false;
+        try {
+            $scripto = ScriptoPlugin::getScripto();
+            // Handle a registration.
+            if ($this->_getParam('scripto_mediawiki_register')) {
+                $scripto->register($this->_getParam('scripto_mediawiki_username'),
+                                    $this->_getParam('scripto_mediawiki_password'),
+                                    $this->_getParam('scripto_mediawiki_email'),
+                                    $this->_getParam('scripto_mediawiki_realname'));
+                $this->view->registeredOK = true;
+            }
+            /*/* Redirect if logged in.
+            if ($scripto->isLoggedIn()) {
+                if ($this->_getParam('scripto_redirect_url')) {
+                    $this->_helper->redirector->gotoUrl($this->_getParam('scripto_redirect_url'));
+                } else {
+                    $this->_helper->redirector->goto('index');
+                }
+            }*/
+        } catch (Scripto_Service_Exception $e) {
+            $this->_helper->flashMessenger($e->getMessage());
+        }
+
+        // Set the URL to redirect to on a sucessful registration.
+        $redirectUrl = null;
+        if ($this->_getParam('scripto_redirect_url')) {
+            // Assume login error and reassign the parameter.
+            $redirectUrl = $this->_getParam('scripto_redirect_url');
+        } else if ('scripto' == $this->getRequest()->getModuleName() && $_SERVER['HTTP_REFERER']) {
+            // Assign HTTP referer to scripto_redirect_url parameter only if
+            // coming from the Scripto application.
+            $redirectUrl = $_SERVER['HTTP_REFERER'];
+        }
+
+        $this->view->redirectUrl = $redirectUrl;
+        $this->view->scripto = $scripto;
+    }
+
+    /**
      * Log out of Scripto.
      */
     public function logoutAction()
