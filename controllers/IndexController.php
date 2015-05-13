@@ -110,14 +110,7 @@ class Scripto_IndexController extends Omeka_Controller_AbstractActionController
                                     $this->_getParam('scripto_mediawiki_realname'));
                 $this->view->registeredOK = true;
             }
-            /*/* Redirect if logged in.
-            if ($scripto->isLoggedIn()) {
-                if ($this->_getParam('scripto_redirect_url')) {
-                    $this->_helper->redirector->gotoUrl($this->_getParam('scripto_redirect_url'));
-                } else {
-                    $this->_helper->redirector->goto('index');
-                }
-            }*/
+
         } catch (Scripto_Service_Exception $e) {
             $this->_helper->flashMessenger($e->getMessage());
         }
@@ -223,7 +216,8 @@ class Scripto_IndexController extends Omeka_Controller_AbstractActionController
             $file = $this->_helper->db->getTable('File')->find($doc->getPageId());
 
             // Set the page HTML.
-            $transcriptionPageHtml = Scripto::removeHtmlAttributes($doc->getTranscriptionPageHtml());
+            //$transcriptionPageHtml = Scripto::removeHtmlAttributes($doc->getTranscriptionPageHtml());
+            $transcriptionPageHtml = $doc->getTranscriptionPageHtml();
             $talkPageHtml = Scripto::removeHtmlAttributes($doc->getTalkPageHtml());
 
             // Set all the document's pages.

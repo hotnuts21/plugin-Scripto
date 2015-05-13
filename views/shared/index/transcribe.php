@@ -16,7 +16,7 @@ jQuery(document).ready(function() {
     jQuery('#scripto-transcription-page-edit').click(function() {
         jQuery('#scripto-transcription-page-edit').
             prop('disabled', true).
-            text('<?php echo __('Editing transcription...'); ?>');
+            text('<?php echo __('Saving transcription...'); ?>');
         jQuery.post(
             <?php echo js_escape(url('scripto/index/page-action')); ?>,
             {
@@ -29,7 +29,7 @@ jQuery(document).ready(function() {
             function(data) {
                 jQuery('#scripto-transcription-page-edit').
                     prop('disabled', false).
-                    text('<?php echo __('Edit transcription'); ?>');
+                    text('<?php echo __('Save transcription'); ?>');
                 jQuery('#scripto-transcription-page-html').html(data);
             }
         );
@@ -361,7 +361,7 @@ jQuery(document).ready(function() {
     <div id="scripto-transcription-edit" style="display: none;">
         <div><?php echo $this->formTextarea('scripto-transcription-page-wikitext', $this->doc->getTranscriptionPageWikitext(), array('cols' => '76', 'rows' => '16')); ?></div>
         <div>
-            <?php echo $this->formButton('scripto-transcription-page-edit', __('Edit transcription'), array('style' => 'display:inline; float:none;')); ?>
+            <?php echo $this->formButton('scripto-transcription-page-edit', __('Save transcription'), array('style' => 'display:inline; float:none;')); ?>
         </div>
         <p><a href="http://www.mediawiki.org/wiki/Help:Formatting" target="_blank"><?php echo __('wiki formatting help'); ?></a></p>
     </div><!-- #scripto-transcription-edit -->

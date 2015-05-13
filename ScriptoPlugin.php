@@ -562,7 +562,7 @@ jQuery(document).ready(function() {
     scriptoMap.zoomToMaxExtent();
 });
 </script>
-<div id="scripto-openlayers" class="<?php echo get_option('scripto_viewer_class'); ?>" style="height:400px;"></div>
+<div id="scripto-openlayers" class="<?php echo get_option('scripto_viewer_class'); ?>" style="height:400px; border: 1px solid DarkGrey;"></div>
 <?php
     }
 

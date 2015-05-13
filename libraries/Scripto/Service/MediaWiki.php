@@ -580,17 +580,10 @@ class Scripto_Service_MediaWiki extends Zend_Service_Abstract
             $response = $this->_request('createaccount', $params);
         }
 
-        // Process a successful login.
-        if ('success' == $response['createaccount']['result']) {
+        // Process a successful registration - success is case sensitive.
+        if ('Success' == $response['createaccount']['result']) {
             if ($this->_passCookies) {
-
-                // Persist the MediaWiki cookie prefix in the browser. Set to
-                // expire in 30 days, the same as MediaWiki cookies.
-                setcookie(self::COOKIE_PREFIX . 'cookieprefix',
-                          $response['createaccount']['cookieprefix'],
-                          time() + 60 * 60 * 24 * 30,
-                          '/');
-
+            
                 // Persist MediaWiki authentication cookies in the browser.
                 foreach (self::getHttpClient()->getCookieJar()->getAllCookies() as $cookie) {
                     setcookie(self::COOKIE_PREFIX . $cookie->getName(),
@@ -602,6 +595,7 @@ class Scripto_Service_MediaWiki extends Zend_Service_Abstract
             }
             return;
         }
+
 
         // Process an unsuccessful login.
         $errors = array('NoName'          => __('Username is empty.'),
