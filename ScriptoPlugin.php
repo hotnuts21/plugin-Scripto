@@ -57,6 +57,10 @@ class ScriptoPlugin extends Omeka_Plugin_AbstractPlugin
         'scripto_use_google_docs_viewer' => '',
         'scripto_iframe_class' => '',
         'scripto_file_source' => 'original',
+        //options added for openseadragon
+        'scripto_fullsize_source' => 'fullsize',
+        'scripto_thumbnail_source' => 'thumbnail',
+        'scripto_square_source'=> 'square_thumbnail',
         // This path is not really an option, but it allows to save it one time,
         // because paths aren't available after a file is stored.
         'scripto_file_source_path' => 'original',
